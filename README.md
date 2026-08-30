@@ -10,7 +10,10 @@ Aplicación web estática para abrir bases de datos SQLite (`.db`, `.sqlite`, `.
 - Búsqueda en todas las columnas o en una columna concreta.
 - Opción de distinguir mayúsculas/minúsculas.
 - Consulta SQL avanzada en modo lectura (`SELECT`, `WITH`, `PRAGMA`).
-- Exportación de los resultados filtrados a Excel (`.xlsx`).
+- Exportación de los resultados filtrados o seleccionados a Excel (`.xlsx`) y CSV.
+- Selección múltiple de filas y exportación de la selección.
+- Ordenación por columnas.
+- Panel de estadísticas: extensiones, cantidades, tamaño y fechas cuando existen esos campos.
 - El `.xlsx` generado se puede abrir directamente con Apple Numbers.
 - Diseño responsive para iPhone/iPad.
 - Sin backend y sin base de datos propia.
