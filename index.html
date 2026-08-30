@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Explorador SQLite local para navegador">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>DB Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="brand">▣ DB EXPLORER</div>
+    <div class="subtitle">SQLite · local · sin servidor</div>
+  </div>
+  <label class="file-button">
+    <input id="dbFile" type="file" accept=".db,.sqlite,.sqlite3,application/octet-stream">
+    <span>📂 Abrir .DB</span>
+  </label>
+</header>
+
+<main>
+  <section id="welcome" class="panel welcome">
+    <div class="pixel-icon">DB</div>
+    <h1>Explora tu base de datos</h1>
+    <p>Selecciona un archivo SQLite. El contenido se procesa en este dispositivo y no se envía a ningún servidor.</p>
+    <label class="big-button file-button">
+      <input id="dbFileWelcome" type="file" accept=".db,.sqlite,.sqlite3,application/octet-stream">
+      <span>ABRIR BASE DE DATOS</span>
+    </label>
+    <p class="hint">Compatible con .db, .sqlite y .sqlite3</p>
+  </section>
+
+  <section id="app" class="hidden">
+    <div class="stats">
+      <div><b id="dbName">—</b><span>archivo</span></div>
+      <div><b id="tableCount">0</b><span>tablas</span></div>
+      <div><b id="rowCount">0</b><span>filas</span></div>
+      <div><b id="columnCount">0</b><span>columnas</span></div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar panel">
+        <div class="panel-title">TABLAS</div>
+        <div id="tables"></div>
+      </aside>
+
+      <section class="content">
+        <div class="toolbar panel">
+          <div class="table-heading">
+            <span class="eyebrow">TABLA</span>
+            <h2 id="currentTable">—</h2>
+          </div>
+          <div class="actions">
+            <button id="refreshBtn">↻ Actualizar</button>
+            <button id="exportBtn" class="primary">⬇ Exportar</button>
+          </div>
+        </div>
+
+        <div class="filters panel">
+          <div class="search-wrap">
+            <span>🔎</span>
+            <input id="search" type="search" placeholder="Buscar en todas las columnas…" autocomplete="off">
+            <button id="clearSearch" title="Limpiar">×</button>
+          </div>
+          <select id="searchColumn" aria-label="Columna de búsqueda">
+            <option value="__all__">Todas las columnas</option>
+          </select>
+          <label class="check"><input id="caseSensitive" type="checkbox"> Mayúsculas/minúsculas</label>
+        </div>
+
+        <div class="advanced panel">
+          <button id="advancedToggle" class="link-button">▸ Consulta SQL avanzada</button>
+          <div id="advancedBody" class="hidden">
+            <textarea id="sqlInput" spellcheck="false" placeholder="SELECT * FROM archivos WHERE nombre LIKE '%pdf%' LIMIT 100"></textarea>
+            <div class="sql-row">
+              <button id="runSql" class="primary">▶ Ejecutar SQL</button>
+              <span>Solo lectura: SELECT / WITH / PRAGMA de consulta.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-panel panel">
+          <div class="table-info">
+            <span id="resultInfo">0 resultados</span>
+            <span id="pageInfo"></span>
+          </div>
+          <div id="tableWrap" class="table-wrap">
+            <div class="empty">Abre una tabla para ver sus datos.</div>
+          </div>
+          <div class="pagination">
+            <button id="prevPage">← Anterior</button>
+            <span id="pageNumber">1</span>
+            <button id="nextPage">Siguiente →</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<footer>DB EXPLORER · procesamiento local · GitHub Pages</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/sql-wasm.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
